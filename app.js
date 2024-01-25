@@ -3,10 +3,12 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
 const app = express();
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({ origin: "*" }));
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const AUTH_URL = process.env.authenticationUrl;
@@ -116,9 +118,9 @@ app.post("/login/validate", async (req, res) => {
 app.use("/farmer", validateToken, checkAccountType("farmer"), farmerRouter);
 app.use("/agent", validateToken, checkAccountType("agent"), agentRouter);
 
-app.post('/logout', (req, res) => {
-  res.clearCookie('token');
-  res.json({ message: 'Logout successful' });
+app.post("/logout", (req, res) => {
+  res.clearCookie("token");
+  res.json({ message: "Logout successful" });
 });
 
 const port = process.env.PORT || 3000;
