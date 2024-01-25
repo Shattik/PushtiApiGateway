@@ -79,7 +79,6 @@ app.post("/login/validate", async (req, res) => {
   try {
     const nid = req.body.nid;
     const password = req.body.password;
-    const accountType = req.body.accountType;
 
     const resp = await axios.post(AUTH_URL + "/login/validate", {
       nid: nid,
@@ -88,9 +87,9 @@ app.post("/login/validate", async (req, res) => {
 
     console.log(resp.data);
     if (resp.data.success) {
-      const accountTypeLower = String(accountType).toLowerCase();
-      console.log("Holla bro");
-      const userData = { id: resp.data.id, accountType: accountTypeLower };
+      // const accountTypeLower = String(accountType).toLowerCase();
+      // console.log("Holla bro");
+      const userData = { id: resp.data.id, accountType: resp.data.accountType };
       const token = generateToken(userData);
 
       // Set token in HttpOnly cookie
@@ -101,7 +100,7 @@ app.post("/login/validate", async (req, res) => {
         maxAge: 3600000 * 12, // cookie expiry, should match JWT expiry
       });
 
-      const redirectUrl = `/${accountTypeLower}/dashboard`;
+      const redirectUrl = `/${resp.data.accountType}/dashboard`;
 
       res
         .status(200)
