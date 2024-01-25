@@ -9,6 +9,7 @@ router.get("/", (req, res) => {
   );
 });
 
+// dashboard
 router.get("/dashboard", (req, res) => {
   const dashboardUrl = process.env.farmerUrl + "/dashboard";
   axios
@@ -17,6 +18,55 @@ router.get("/dashboard", (req, res) => {
       res.status(200).send(response.data);
     })
     .catch((error) => {
+      res.status(404).send({ message: "Not found" });
+    });
+});
+
+// loan
+router.get("/loan", (req, res) => {
+  const loanUrl = process.env.farmerUrl + "/loan";
+  const req_data = { id: req.user.id, page: 0 };
+
+  axios
+    .post(loanUrl, req_data)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      res.status(404).send({ message: "Not found" });
+    });
+});
+
+router.post("/loan", (req, res) => {
+  const loanUrl = process.env.farmerUrl + "/loan";
+  const req_data = { id: req.user.id, page: req.body.page };
+
+  axios
+    .post(loanUrl, req_data)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      res.status(404).send({ message: "Not found" });
+    });
+});
+
+router.post("/loan/request", async (req, res) => {
+  const loanUrl = process.env.farmerUrl + "/loan/request";
+  const req_data = {
+    farmer_id: req.body.id,
+    min: req.body.min,
+    max: req.body.max,
+    description: req.body.description,
+  };
+
+  axios
+    .post(loanUrl, req_data)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
       res.status(404).send({ message: "Not found" });
     });
 });
