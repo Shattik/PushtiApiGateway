@@ -3,7 +3,10 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
 const app = express();
+const cookieParser = require("cookie-parser");
+
 app.use(express.json());
+app.use(cookieParser());
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const AUTH_URL = process.env.authenticationUrl;
@@ -14,7 +17,8 @@ const registrationRouter = require("./registerRoute"); // Import registerRoute
 
 // Middleware for token validation, this adds req.user, example req.user = { nid: '1234567890', accountType: 'farmer' }
 function validateToken(req, res, next) {
-  const token = req.headers["authorization"];
+  // const token = req.headers["authorization"];
+  const token = req.cookies.token;
 
   if (!token) return res.status(401).send("Access denied. No token provided.");
 
@@ -50,7 +54,7 @@ function checkAccountType(accountType) {
 
 // Generate JWT token
 function generateToken(userData) {
-  return jwt.sign(userData, JWT_SECRET, { expiresIn: "1h" });
+  return jwt.sign(userData, JWT_SECRET, { expiresIn: "12h" });
 }
 
 app.use("/register", registrationRouter);
@@ -87,6 +91,14 @@ app.post("/login/validate", async (req, res) => {
       const userData = { id: resp.data.id, accountType: accountTypeLower };
       const token = generateToken(userData);
 
+      // Set token in HttpOnly cookie
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: true, // set to true if using https
+        sameSite: "Strict", // helps mitigate CSRF
+        maxAge: 3600000 * 12, // cookie expiry, should match JWT expiry
+      });
+
       const redirectUrl = `/${accountTypeLower}/dashboard`;
 
       res
@@ -103,6 +115,11 @@ app.post("/login/validate", async (req, res) => {
 // Protected routes for account types
 app.use("/farmer", validateToken, checkAccountType("farmer"), farmerRouter);
 app.use("/agent", validateToken, checkAccountType("agent"), agentRouter);
+
+app.post('/logout', (req, res) => {
+  res.clearCookie('token');
+  res.json({ message: 'Logout successful' });
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Api-gateway running on port ${port}`));
