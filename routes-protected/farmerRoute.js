@@ -57,7 +57,7 @@ router.post("/loan", (req, res) => {
 router.post("/loan/request", async (req, res) => {
   const loanUrl = process.env.farmerUrl + "/loan/request";
   const req_data = {
-    farmer_id: req.body.id,
+    id: req.user.id,
     min: req.body.min,
     max: req.body.max,
     description: req.body.description,
