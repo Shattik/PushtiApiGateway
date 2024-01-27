@@ -12,12 +12,15 @@ router.get("/", (req, res) => {
 // dashboard
 router.get("/dashboard", (req, res) => {
   const dashboardUrl = process.env.farmerUrl + "/dashboard";
+  console.log(dashboardUrl);
+  console.log(req.user.id);
   axios
     .post(dashboardUrl, { id: req.user.id })
     .then((response) => {
       res.status(200).send(response.data);
     })
     .catch((error) => {
+      console.log(error);
       res.status(404).send({ message: "Not found" });
     });
 });

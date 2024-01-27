@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const agentLoanRouter = require("./agentRouteLoan");
+const axios = require("axios");
 
 router.get("/", (req, res) => {
   console.log(req.user);
@@ -12,6 +13,7 @@ router.get("/", (req, res) => {
 // dashboard
 router.get("/dashboard", (req, res) => {
   const dashboardUrl = process.env.agentUrl + "/dashboard";
+  console.log(dashboardUrl);
   axios
     .post(dashboardUrl, { id: req.user.id })
     .then((response) => {
