@@ -19,8 +19,8 @@ const registrationRouter = require("./registerRoute"); // Import registerRoute
 
 // Middleware for token validation, this adds req.user, example req.user = { nid: '1234567890', accountType: 'farmer' }
 function validateToken(req, res, next) {
-  // const token = req.headers["authorization"];
-  const token = req.cookies.token;
+  const token = req.headers["authorization"];
+  //const token = req.cookies.token;
 
   if (!token) return res.status(401).send("Access denied. No token provided.");
 
