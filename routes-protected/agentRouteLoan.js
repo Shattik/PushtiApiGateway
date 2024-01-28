@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/response/farmer/next", async (req, res) => {
-  const loanUrl = process.env.agentUrl + "/response/farmer/next";
+  const loanUrl = process.env.agentUrl + "/loan/response/farmer/next";
   const req_data = {
     loan_id: req.body.loan_id,
   };
@@ -34,7 +34,7 @@ router.post("/response/farmer/next", async (req, res) => {
 });
 
 router.post("/response/sme/next", async (req, res) => {
-  const loanUrl = process.env.agentUrl + "/response/sme/next";
+  const loanUrl = process.env.agentUrl + "/loan/response/sme/next";
   const req_data = {
     loan_id: req.body.loan_id,
   };
@@ -52,7 +52,7 @@ router.post("/response/sme/next", async (req, res) => {
 
 // do same for farmer/reject and sme/reject
 router.post("/response/farmer/reject", async (req, res) => {
-  const loanUrl = process.env.agentUrl + "/response/farmer/reject";
+  const loanUrl = process.env.agentUrl + "/loan/response/farmer/reject";
   const req_data = {
     loan_id: req.body.loan_id,
   };
@@ -69,7 +69,7 @@ router.post("/response/farmer/reject", async (req, res) => {
 });
 
 router.post("/response/sme/reject", async (req, res) => {
-  const loanUrl = process.env.agentUrl + "/response/sme/reject";
+  const loanUrl = process.env.agentUrl + "/loan/response/sme/reject";
   const req_data = {
     loan_id: req.body.loan_id,
   };
@@ -86,7 +86,7 @@ router.post("/response/sme/reject", async (req, res) => {
 });
 
 router.post("/response/farmer/accept", async (req, res) => {
-  const loanUrl = process.env.agentUrl + "/response/farmer/accept";
+  const loanUrl = process.env.agentUrl + "/loan/response/farmer/accept";
   const req_data = {
     loan_id: req.body.loan_id,
     amount: req.body.amount,
@@ -104,7 +104,7 @@ router.post("/response/farmer/accept", async (req, res) => {
 });
 
 router.post("/response/sme/accept", async (req, res) => {
-  const loanUrl = process.env.agentUrl + "/response/sme/accept";
+  const loanUrl = process.env.agentUrl + "/loan/response/sme/accept";
   const req_data = {
     loan_id: req.body.loan_id,
     amount: req.body.amount,
