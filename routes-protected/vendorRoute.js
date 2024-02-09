@@ -42,4 +42,50 @@ router.get("/inventory", (req, res) => {
     });
 });
 
+// vendors pov
+router.get("/buy/history", (req, res) => {
+  // system's pov
+  const buyUrl = process.env.vendorUrl + "/sell/history";
+  console.log(buyUrl);
+  console.log(req.user.id);
+  axios
+    .post(buyUrl, { id: req.user.id })
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(501).send({ message: "Internal Server Error" });
+    });
+});
+
+// send { tid: 1234 }
+router.post("/buy-response/accept", (req, res) => {
+  const buyUrl = process.env.vendorUrl + "/sell-response/accept";
+
+  axios
+    .post(buyUrl, { id: req.body.tid })
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(501).send({ message: "Intenal Server Error" });
+    });
+});
+
+router.post("/buy-response/reject", (req, res) => {
+  const buyUrl = process.env.vendorUrl + "/sell-response/reject";
+
+  axios
+    .post(buyUrl, { id: req.body.tid })
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(501).send({ message: "Internal Server Error" });
+    });
+});
+
 module.exports = router;
