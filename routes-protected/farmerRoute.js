@@ -74,4 +74,49 @@ router.post("/loan/request", async (req, res) => {
     });
 });
 
+// farmer's pov
+router.get("/sell/history", (req, res) => {
+  // systems pov
+  const buyHistoryUrl = process.env.farmerUrl + "/buy/history";
+  const req_data = { id: req.user.id };
+
+  axios
+    .post(buyHistoryUrl, req_data)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      res.status(404).send({ message: "Not found" });
+    });
+});
+
+// send { tid: 1234 }
+router.post("/sell-response/accept", (req, res) => {
+  const buyAcceptUrl = process.env.farmerUrl + "/buy/buy-response/accept";
+  const req_data = { id: req.body.tid };
+
+  axios
+    .post(buyAcceptUrl, req_data)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      res.status(404).send({ message: "Internal Server Error" });
+    });
+});
+
+router.post("/sell-response/reject", (req, res) => {
+  const buyRejectUrl = process.env.farmerUrl + "/buy/buy-response/reject";
+  const req_data = { id: req.body.tid };
+
+  axios
+    .post(buyRejectUrl, req_data)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      res.status(404).send({ message: "Internal Server Error" });
+    });
+});
+
 module.exports = router;
