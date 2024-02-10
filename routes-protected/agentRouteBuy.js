@@ -64,40 +64,40 @@ router.get("/request/sme", async (req, res) => {
     });
 });
 
-// will get the cool infos of farmer, send { farmer_nid: "123" }
-router.post("/request/info/farmer", async (req, res) => {
-  const farmerInfoRequestUrl =
-    process.env.agentUrl + "/buy/request/info/farmer";
+// // will get the cool infos of farmer, send { farmer_nid: "123" }
+// router.post("/request/info/farmer", async (req, res) => {
+//   const farmerInfoRequestUrl =
+//     process.env.agentUrl + "/buy/request/info/farmer";
 
-  const farmer_nid = req.body.farmer_nid;
+//   const farmer_nid = req.body.farmer_nid;
 
-  axios
-    .post(farmerInfoRequestUrl, { farmer_nid })
-    .then((response) => {
-      res.status(200).send(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(404).send({ message: "Not found" });
-    });
-});
+//   axios
+//     .post(farmerInfoRequestUrl, { farmer_nid })
+//     .then((response) => {
+//       res.status(200).send(response.data);
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//       res.status(404).send({ message: "Not found" });
+//     });
+// });
 
-// will get the cool infos of smes, send { farmer_nid: "123" }
-router.post("/request/info/sme", async (req, res) => {
-  const smeInfoRequestUrl = process.env.agentUrl + "/buy/request/info/sme";
+// // will get the cool infos of smes, send { farmer_nid: "123" }
+// router.post("/request/info/sme", async (req, res) => {
+//   const smeInfoRequestUrl = process.env.agentUrl + "/buy/request/info/sme";
 
-  const sme_nid = req.body.sme_nid;
+//   const sme_nid = req.body.sme_nid;
 
-  axios
-    .post(smeInfoRequestUrl, { sme_nid })
-    .then((response) => {
-      res.status(200).send(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(404).send({ message: "Not found" });
-    });
-});
+//   axios
+//     .post(smeInfoRequestUrl, { sme_nid })
+//     .then((response) => {
+//       res.status(200).send(response.data);
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//       res.status(404).send({ message: "Not found" });
+//     });
+// });
 
 // bhai shattik onek genjam korse, ore jiga ki kora lagbe
 router.post("/request/submit/farmer", async (req, res) => {
