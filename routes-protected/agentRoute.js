@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const agentLoanRouter = require("./agentRouteLoan");
+const agentBuyRouter = require("./agentRouteBuy");
 const axios = require("axios");
 
 router.get("/", (req, res) => {
@@ -41,6 +42,7 @@ router.get("/inventory", (req, res) => {
 
 
 router.use("/loan", agentLoanRouter);
+router.use("/buy", agentBuyRouter);
 
 
 module.exports = router;
