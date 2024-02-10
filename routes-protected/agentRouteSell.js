@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 
-router.post("/history/vendor", async (req, res) => {
+router.get("/history/vendor", async (req, res) => {
   const vendorSellHistoryUrl = process.env.agentUrl + "/sell/history/vendor";
   const req_data = { id: req.user.id };
   console.log(vendorSellHistoryUrl);
