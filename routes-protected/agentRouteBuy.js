@@ -4,7 +4,7 @@ const axios = require("axios");
 
 router.get("/history/farmer", async (req, res) => {
   const farmerBuyHistoryUrl = process.env.agentUrl + "/buy/history/farmer";
-  const req_data = { agent_id: req.user.id };
+  const req_data = { id: req.user.id };
   console.log(farmerBuyHistoryUrl);
 
   axios
@@ -19,7 +19,7 @@ router.get("/history/farmer", async (req, res) => {
 
 router.get("/history/sme", async (req, res) => {
   const smeBuyHistoryUrl = process.env.agentUrl + "/buy/history/sme";
-  const req_data = { agent_id: req.user.id };
+  const req_data = { id: req.user.id };
   console.log(smeBuyHistoryUrl);
 
   axios
