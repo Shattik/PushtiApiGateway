@@ -17,6 +17,7 @@ const farmerRouter = require("./routes-protected/farmerRoute"); // Import farmer
 const agentRouter = require("./routes-protected/agentRoute"); // Import agentRoute
 const vendorRouter = require("./routes-protected/vendorRoute"); // Import vendorRoute
 const registrationRouter = require("./registerRoute"); // Import registerRoute
+const smeRouter = require("./routes-protected/smeRoute"); // Import smeRoute
 
 
 // Middleware for token validation, this adds req.user, example req.user = { nid: '1234567890', accountType: 'farmer' }
@@ -119,6 +120,7 @@ app.post("/login/validate", async (req, res) => {
 app.use("/farmer", validateToken, checkAccountType("farmer"), farmerRouter);
 app.use("/agent", validateToken, checkAccountType("agent"), agentRouter);
 app.use("/vendor", validateToken, checkAccountType("vendor"), vendorRouter);
+app.use("/sme", validateToken, checkAccountType("sme"), smeRouter);
 
 app.post("/logout", (req, res) => {
   res.clearCookie("token");
