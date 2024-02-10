@@ -70,6 +70,8 @@ router.post("/request/submit/vendor", async (req, res) => {
   const vendorSellRequestSubmitUrl =
     process.env.agentUrl + "/sell/request/submit/vendor";
 
+  req.body.sellReq.agentId = req.user.id;
+
   axios
     .post(vendorSellRequestSubmitUrl, req.body)
     .then((response) => {
@@ -84,6 +86,8 @@ router.post("/request/submit/vendor", async (req, res) => {
 router.post("/request/submit/sme", async (req, res) => {
   const smeSellRequestSubmitUrl =
     process.env.agentUrl + "/sell/request/submit/sme";
+
+  req.body.sellReq.agentId = req.user.id;
 
   axios
     .post(smeSellRequestSubmitUrl, req.body)
