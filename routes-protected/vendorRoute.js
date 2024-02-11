@@ -61,7 +61,7 @@ router.get("/buy/history", (req, res) => {
 
 // send { tid: 1234 }
 router.post("/buy-response/accept", (req, res) => {
-  const buyUrl = process.env.vendorUrl + "/sell-response/accept";
+  const buyUrl = process.env.vendorUrl + "/sell/sell-response/accept";
 
   axios
     .post(buyUrl, { id: req.body.tid })
@@ -75,7 +75,7 @@ router.post("/buy-response/accept", (req, res) => {
 });
 
 router.post("/buy-response/reject", (req, res) => {
-  const buyUrl = process.env.vendorUrl + "/sell-response/reject";
+  const buyUrl = process.env.vendorUrl + "/sell/sell-response/reject";
 
   axios
     .post(buyUrl, { id: req.body.tid })
