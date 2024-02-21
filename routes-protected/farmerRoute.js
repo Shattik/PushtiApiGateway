@@ -25,6 +25,24 @@ router.get("/dashboard", (req, res) => {
     });
 });
 
+// leaderboard - no need to send anything
+router.get("/leaderboard", (req, res) => {
+  const leaderboardUrl = process.env.farmerUrl + "/leaderboard";
+  console.log(leaderboardUrl);
+  console.log(req.user.id);
+  axios
+    .post(leaderboardUrl, {
+      id: req.user.id,
+    })
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).send({ message: "Not found" });
+    });
+});
+
 // loan
 router.get("/loan", (req, res) => {
   const loanUrl = process.env.farmerUrl + "/loan";

@@ -42,7 +42,10 @@ function validateToken(req, res, next) {
 
     next();
   } catch (ex) {
-    res.status(400).send("Invalid token.");
+    res.status(400).send({
+      error: "auth-error",
+      message: "Unauthorized token.",
+    });
   }
 }
 
