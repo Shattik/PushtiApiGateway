@@ -19,7 +19,6 @@ const vendorRouter = require("./routes-protected/vendorRoute"); // Import vendor
 const registrationRouter = require("./registerRoute"); // Import registerRoute
 const smeRouter = require("./routes-protected/smeRoute"); // Import smeRoute
 
-
 // Middleware for token validation, this adds req.user, example req.user = { nid: '1234567890', accountType: 'farmer' }
 function validateToken(req, res, next) {
   const token = req.headers["authorization"];
@@ -51,7 +50,12 @@ function validateToken(req, res, next) {
 function checkAccountType(accountType) {
   return (req, res, next) => {
     if (req.user.accountType !== accountType) {
-      return res.status(403).send("Access forbidden: Incorrect account type.");
+      return res
+        .status(403)
+        .send({
+          error: "account-type-error",
+          message: "Access forbidden: Incorrect account type.",
+        });
     }
     next();
   };

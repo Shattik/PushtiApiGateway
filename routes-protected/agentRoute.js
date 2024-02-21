@@ -41,6 +41,24 @@ router.get("/inventory", (req, res) => {
     });
 });
 
+// request body {id: req.user.id, account_type: req.user.accountType}
+router.get("/leaderboard", (req, res) => {
+  const leaderboardUrl = process.env.agentUrl + "/leaderboard";
+  console.log(leaderboardUrl);
+  console.log(req.user.id);
+  axios
+    .post(leaderboardUrl, {
+      id: req.user.id,
+      account_type: req.user.accountType,
+    })
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).send({ message: "Not found" });
+    });
+});
 
 router.use("/loan", agentLoanRouter);
 router.use("/buy", agentBuyRouter);
