@@ -60,6 +60,38 @@ router.get("/leaderboard", (req, res) => {
     });
 });
 
+// support ticket
+router.get("/inbox", (req, res) => {
+  const inboxUrl = process.env.agentUrl + "/support/inbox";
+  const req_data = { id: req.user.id };
+
+  axios
+    .post(inboxUrl, req_data)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      res.status(404).send({ message: "Not found" });
+    });
+});
+
+// request body {subject: , details:}
+router.post("/send-ticket", (req, res) => {
+  const sendTicketUrl = process.env.agentUrl + "/support/send-ticket";
+  
+  req.body.userId = req.user.id;
+
+  axios
+    .post(sendTicketUrl, req.body)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).send({ message: "Not found" });
+    });
+});
+
 router.use("/loan", agentLoanRouter);
 router.use("/buy", agentBuyRouter);
 router.use("/sell", agentSellRouter);
