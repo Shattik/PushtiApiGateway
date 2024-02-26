@@ -18,6 +18,7 @@ const agentRouter = require("./routes-protected/agentRoute"); // Import agentRou
 const vendorRouter = require("./routes-protected/vendorRoute"); // Import vendorRoute
 const registrationRouter = require("./registerRoute"); // Import registerRoute
 const smeRouter = require("./routes-protected/smeRoute"); // Import smeRoute
+const adminRouter = require("./routes-protected/adminRoute"); // Import adminRoute
 
 // Middleware for token validation, this adds req.user, example req.user = { nid: '1234567890', accountType: 'farmer' }
 function validateToken(req, res, next) {
@@ -128,10 +129,11 @@ app.use("/farmer", validateToken, checkAccountType("farmer"), farmerRouter);
 app.use("/agent", validateToken, checkAccountType("agent"), agentRouter);
 app.use("/vendor", validateToken, checkAccountType("vendor"), vendorRouter);
 app.use("/sme", validateToken, checkAccountType("sme"), smeRouter);
+app.use("/admin", validateToken, checkAccountType("admin"), adminRouter);
 
 app.post("/logout", (req, res) => {
   res.clearCookie("token");
-  res.json({ message: "Logout successful" });
+  res.json({ message: "Logout successful", redirectUrl: process.env.frontendUrl });
 });
 
 const port = process.env.PORT || 3000;
