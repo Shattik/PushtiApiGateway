@@ -24,5 +24,51 @@ router.get("/dashboard", (req, res) => {
     });
 });
 
+// tickets
+
+// no need to send anything
+router.get("support/inbox", (req, res) => {
+  const inboxUrl = process.env.adminUrl + "/support/inbox";
+
+  axios
+    .post(inboxUrl, { id: req.user.id })
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).send({ message: "Not found" });
+    });
+});
+
+// send {ticketId: 1234 }
+router.post("/support/update-ticket/make-read", (req, res) => {
+  const makeReadUrl = process.env.adminUrl + "/support/update-ticket/make-read";
+
+  axios
+    .post(makeReadUrl, { id: req.user.id, ticketId: req.body.ticketId })
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).send({ message: "Not found" });
+    });
+});
+
+// send {ticketId: 1234, status: "resolved" }
+router.post("/support/update-ticket/update-status", (req, res) => {
+  const updateStatusUrl = process.env.adminUrl + "/support/update-ticket/update-status";
+
+  axios
+    .post(updateStatusUrl, { id: req.user.id, ticketId: req.body.ticketId, status: req.body.status })
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).send({ message: "Not found" });
+    });
+});
 
 module.exports = router;
