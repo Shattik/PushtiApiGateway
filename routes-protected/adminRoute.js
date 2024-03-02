@@ -121,6 +121,81 @@ router.post("/product/update-product", (req, res) => {
     });
 });
 
-// checking the loan history of a user
+// admin reports
+// don't need to send anything
+router.post("/reports", (req, res) => {
+  const reportsUrl = process.env.adminUrl + "/report/general";
+
+  axios
+    .post(reportsUrl, { id: req.user.id })
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).send({ message: "Not found" });
+    });
+});
+
+// req.body = {division_id: 123}
+router.post("/reports/division", (req, res) => {
+  const divisionReportUrl = process.env.adminUrl + "/report/division";
+
+  axios
+    .post(divisionReportUrl, req.body)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).send({ message: "Not found" });
+    });
+});
+
+// req.body = {district_id: 123}
+router.post("/report/district", (req, res) => {
+  const districtReportUrl = process.env.adminUrl + "/report/district";
+
+  axios
+    .post(districtReportUrl, req.body)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).send({ message: "Not found" });
+    });
+});
+
+// req.body = {upazila_id: 123}
+router.post("/report/upazila", (req, res) => {
+  const upazilaReportUrl = process.env.adminUrl + "/report/upazila";
+
+  axios
+    .post(upazilaReportUrl, req.body)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).send({ message: "Not found" });
+    });
+});
+
+// req.body = {union_id: 123}
+router.post("/report/union", (req, res) => {
+  const unionReportUrl = process.env.adminUrl + "/report/union";
+
+  axios
+    .post(unionReportUrl, req.body)
+    .then((response) => {
+      res.status(200).send(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).send({ message: "Not found" });
+    });
+});
+
 
 module.exports = router;
