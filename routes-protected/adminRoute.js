@@ -123,7 +123,7 @@ router.post("/product/update-product", (req, res) => {
 
 // admin reports
 // don't need to send anything
-router.post("/reports", (req, res) => {
+router.get("/reports", (req, res) => {
   const reportsUrl = process.env.adminUrl + "/report/general";
 
   axios
