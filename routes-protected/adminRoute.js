@@ -41,7 +41,7 @@ router.get("/support/inbox", (req, res) => {
 });
 
 // send {ticketId: 1234 }
-router.post("/support/update-ticket/close-ticket", (req, res) => {
+router.post("/support/update-ticket/make-read", (req, res) => {
   const makeReadUrl = process.env.adminUrl + "/support/update-ticket/make-read";
 
   axios
@@ -56,7 +56,7 @@ router.post("/support/update-ticket/close-ticket", (req, res) => {
 });
 
 // send {ticketId: 1234, status: "closed", comment: "lorem ipsum" }
-router.post("/support/update-ticket/update-status", (req, res) => {
+router.post("/support/update-ticket/close-ticket", (req, res) => {
   const updateStatusUrl = process.env.adminUrl + "/support/update-ticket/update-status";
 
   axios
