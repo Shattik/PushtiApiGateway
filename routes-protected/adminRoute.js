@@ -41,12 +41,12 @@ router.get("support/inbox", (req, res) => {
     });
 });
 
-// send {ticketId: 1234 }
-router.post("/support/update-ticket/make-read", (req, res) => {
+// send {ticketId: 1234, comment: "lorem ipsum" }
+router.post("/support/update-ticket/close-ticket", (req, res) => {
   const makeReadUrl = process.env.adminUrl + "/support/update-ticket/make-read";
 
   axios
-    .post(makeReadUrl, { id: req.user.id, ticketId: req.body.ticketId })
+    .post(makeReadUrl, { id: req.user.id, ticketId: req.body.ticketId, comment: req.body.comment })
     .then((response) => {
       res.status(200).send(response.data);
     })
