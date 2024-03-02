@@ -27,7 +27,7 @@ router.get("/dashboard", (req, res) => {
 // tickets
 
 // no need to send anything
-router.get("support/inbox", (req, res) => {
+router.get("/support/inbox", (req, res) => {
   const inboxUrl = process.env.adminUrl + "/support/inbox";
 
   axios
