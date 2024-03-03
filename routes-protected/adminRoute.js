@@ -168,8 +168,8 @@ router.post("/report/district", (req, res) => {
 });
 
 // req.body = {upazila_id: 123}
-router.post("/report/upazila", (req, res) => {
-  const upazilaReportUrl = process.env.adminUrl + "/report/upazila";
+router.post("/report/upazilla", (req, res) => {
+  const upazilaReportUrl = process.env.adminUrl + "/report/upazilla";
 
   axios
     .post(upazilaReportUrl, req.body)
